@@ -18,7 +18,7 @@
 
 clc; close all; clear all;
 %% ===========================================================
-% SECTION 1: Import data
+% Import data
 %=============================================================
 % The CSV data files describeing two datasets'tij\_InVS' and 'SFHH',
 % containg edges sorted without duplicates respectively:
@@ -34,7 +34,7 @@ else dataset=='sfhh'
     data = importdata('filtered_sfhh.csv');         % sorted, without duplicates 
 end
 %% =========================================================================
-%SECTION 2: construct (1-simplex) and compute average node degree
+% Construct (1-simplex) and compute average node degree
 %==========================================================================
 % A 1-simplex {i, j} is a direct connection between two vertices.
 % node IDs representing an undirected edge
@@ -49,8 +49,10 @@ degrees = sum(AM,2);                                % Degree of each node
 avg_degree = mean(degrees);                         % Average node degree 
 
 disp(['Average node degree: ', num2str(avg_degree)]);
+
+
 %% =========================================================================
-%SECTION 3:Construct (2-simplex) and compute Average node-to-facet degree (triangles)
+% Construct (2-simplex) and compute Average node-to-facet degree (triangles)
 %==========================================================================
 % A 2-simplex {i, j, k} exists when every node i is connected to two other
 % nodes j, k making a triangle with edges i-j, i-k,j-k.
@@ -101,8 +103,9 @@ disp(['Average node-to-facet degree (triangles): ', num2str(avg_facet_degree)]);
 
 %disp(triangles);
 
+
 %% =========================================================================
-%SECTION 4: construct (3-simplex) and compute Average node-to-facet degree (tetrahedra)
+% Construct (3-simplex) and compute Average node-to-facet degree (tetrahedra)
 %==========================================================================
 % A 3-simplex {i, j, k, l} exists when every node i is connected to three other
 % nodes j, k and l making a tetrahedra with edges i-j, i-k, i-l, j-k, j-l, k-l.
@@ -153,8 +156,9 @@ avg_facet_degree = sum(node_to_facet_degree)/N; % divide by L or N?
 
 disp(['Average node-to-facet degree (tetrahedra): ', num2str(avg_facet_degree)]);
 
+
 %% ========================================================================
-% SECTION 5: Plot simplices
+% Plot simplices
 %==========================================================================
 %  Visualise simplicial complex derived from a real
 %  datasets across four figures:
@@ -163,8 +167,9 @@ disp(['Average node-to-facet degree (tetrahedra): ', num2str(avg_facet_degree)])
 %   Figure 2 — 2-simplices : triangular faces shaded yellow
 %   Figure 3 — 3-simplices : tetrahedral faces shaded red
 %   Figure 4 — Combined    : full simplicial complex, all dimensions
+
 %-----------------------------------------------------------------------
-%STEP1: Build graph from edges  
+%STEP 1: Build graph from edges  
 %------------------------------------------------------------------------
 G = graph(edges(:,1), edges(:,2));   
                                      % Get layout coordinates (2D)
@@ -176,7 +181,7 @@ z = rand(size(x));
 vertices = [x(:), y(:), z(:)];
 
 %-----------------------------------------------------------------------
-%STEP2: Show 1-simplex( pairwise connections) 
+%STEP 2: Show 1-simplex( pairwise connections) 
 %------------------------------------------------------------------------
 
 figure;
@@ -190,7 +195,7 @@ scatter3(vertices(:,1), vertices(:,2), vertices(:,3), 40, 'b', 'filled', 'Marker
 axis off;
 
 %-----------------------------------------------------------------------
-%STEP3: Show 2-simplex( triangular connections) 
+%STEP 3: Show 2-simplex( triangular connections) 
 %------------------------------------------------------------------------
 figure; hold on; 
 for e = 1:size(edges,1)
@@ -206,7 +211,7 @@ scatter3(vertices(:,1), vertices(:,2), vertices(:,3), 40, 'b', 'filled', 'Marker
 axis off;
 
 %-----------------------------------------------------------------------
-%STEP4: Show 3-simplex (tetrahedral connections)
+%STEP 4: Show 3-simplex (tetrahedral connections)
 %------------------------------------------------------------------------
 figure; hold on;
 for e = 1:size(edges,1)
@@ -222,8 +227,9 @@ for tet = 1:size(tetrahedra,1)
 end
 scatter3(vertices(:,1), vertices(:,2), vertices(:,3), 40, 'b', 'filled', 'MarkerEdgeColor','k');
 axis off;
+
 %-----------------------------------------------------------------------
-%STEP5: Plot simplicial complex ( paie+triangles+tetrahedra) 
+%STEP 5: Plot simplicial complex ( paie+triangles+tetrahedra) 
 %------------------------------------------------------------------------
 figure; hold on; 
 

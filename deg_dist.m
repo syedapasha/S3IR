@@ -19,9 +19,9 @@
 clc; close all; clear all;
 
 %% ===========================================================
-% SECTION 1: Import data
+% Import data
 %=============================================================
-% The CSV data files describeing two datasets'tij\_InVS' and 'SFHH',
+% The CSV data files describeing two datasets'tij_InVS' and 'SFHH',
 % containg edges sorted without duplicates respectively:
 %    'filtered_tijInvs.csv'      each row is a pair   [i, j]
 %    'filtered_sfhh.csv'         each row is a pair   [i, j]
@@ -40,7 +40,7 @@ edges = data;
 
 
 %% =======================================================================
-%  SECTION 2 — GRAPH CONSTRUCTION (1-Simplex)
+%  GRAPH CONSTRUCTION (1-Simplex)
 %=========================================================================
 %  Build an undirected graph from the edge list and derive the
 %  adjacency matrix. The graph represents the 1-skeleton (edges only)
@@ -55,8 +55,9 @@ degrees = sum(AM,2);
 avg_degree = mean(degrees);          
 disp(['Average node degree: ', num2str(avg_degree)]);
 
+
 %% =======================================================================
-%  SECTION 3 — NEIGHBOUR LIST CONSTRUCTION
+%  NEIGHBOUR LIST CONSTRUCTION
 %=========================================================================
 %  Convert the adjacency matrix into a cell array of neighbour index lists.
 %  links{i} contains the column indices of all non-zero entries in row i.
@@ -68,15 +69,16 @@ for i = 1:N
     links{i} = find(AM(i,:));
 end
 
+
 %% =====================================================================
-%  SECTION 4 — Construct 2-SIMPLEX  (Triangles)
+%  Construct 2-SIMPLEX  (Triangles)
 %=======================================================================
 %  Enumerate all closed triangles (3-cliques) in the graph by checking,
 %  for every pair of neighbours (j,k) of node i, whether an edge (j,k)
 %  also exists. 
 %    triangles        — raw order  [i, ni(j), ni(k)]  (insertion order)
 %    triangles_sorted — sorted     [0 0 0]     (duplicate guard)
-% Compute the average node-to-facet-degree
+%  Compute the average node-to-facet-degree
 % ------------------------------------------------------------------------
 
 triangles = [];
@@ -126,18 +128,19 @@ disp(['Average node-to-facet degree (triangles): ', num2str(avg_facet_degree)]);
 
 disp(triangles);
 writematrix(triangles,strcat('triangles_',dataset,'.csv'));
+
+
 %% ========================================================================
-%  SECTION 5 —  Construct 3-SIMPLEX (Tetrahedra)
+%  Construct 3-SIMPLEX (Tetrahedra)
 %==========================================================================
 %  Enumerate all closed tetrahedra (4-cliques) in the graph by checking,
 %  for every neighbours (j,k,el) of node i, whether edges (j,k) (j,el) (k,el)
 %  also exists. 
-% Compute the average node-to-facet-degree(tetrahedra)
+%  Compute the average node-to-facet-degree(tetrahedra)
 % ------------------------------------------------------------------------
 
 tetrahedra = [];
 tetrahedra_sorted = [0 0 0 0];
-
 
 for i = 1:N
 
@@ -183,13 +186,15 @@ avg_facet_degree = sum(node_to_facet_degree)/N;     % divide by L or N?
 
 disp(['Average node-to-facet degree (tetrahedra): ', num2str(avg_facet_degree)]);
 writematrix(tetrahedra,strcat('tetrahedra_',dataset,'.csv'));
+
+
 %% ========================================================================
-%  SECTION 6 —  Construct 4-SIMPLEX (Pentachora)
+%  Construct 4-SIMPLEX (Pentachora)
 %==========================================================================
 %  Enumerate all closed Pentachora (5-cliques) in the graph by checking,
 %  for every neighbours (j,k,el,m) of node i, whether edges (j,k) (j,el)
 %  (k,el)(j,m)(k,m)(el,m) also exists. 
-% Compute the average node-to-facet-degree(penta)
+%  Compute the average node-to-facet-degree(penta)
 % ------------------------------------------------------------------------
 
 pentachora = [];
@@ -238,8 +243,10 @@ avg_facet_degree = sum(node_to_facet_degree_penta)/N;     % divide by R or N?
 
 disp(['Average node-to-facet degree (pentachora): ', num2str(avg_facet_degree)]);
 writematrix(pentachora,strcat('penta_',dataset,'.csv'));
+
+
 %% ========================================================================
-%  SECTION 7 —  Construct 5-SIMPLEX (hexahedra)
+%  Construct 5-SIMPLEX (hexahedra)
 %==========================================================================
 %  Enumerate all closed hexahedra(6-cliques) in the graph by checking,
 %  for every neighbours (j,k,el,m,p) of node i, whether edges (j,k) (j,el)
@@ -300,7 +307,7 @@ writematrix(hexahedra,strcat('hexa_',dataset,'.csv'));
 
 
 %% ========================================================================
-%  SECTION 8 —  Construct 6-SIMPLEX (heptahedra)
+%  Construct 6-SIMPLEX (heptahedra)
 %==========================================================================
 %  Enumerate all closed heptahedra(7-cliques) in the graph by checking,
 %  for every neighbours (j,k,el,m,p,q) of node i, whether edges (j,k) (j,el)
@@ -363,8 +370,9 @@ avg_facet_degree = sum(node_to_facet_degree_hepta)/N;     % divide by S or N?
 disp(['Average node-to-facet degree (heptahedra): ', num2str(avg_facet_degree)]);
 writematrix(heptahedra,strcat('hepta_',dataset,'.csv'));
 
+
 %% ========================================================================
-%  SECTION 9 —  Construct Histogram
+%  Construct Histogram
 %==========================================================================
 %  Plot the degree distribution histogram for each simplex
 % ------------------------------------------------------------------------
@@ -401,6 +409,7 @@ title('Histogram', 'Interpreter','latex', 'FontSize',15);
 grid on;
 exportgraphics(f, strcat('TTdeg_',dataset,'.png'));
 
+
 nbins = 5;
 % plot node-to-face (pentachora) degree distribution 
 f = figure('visible', 'off');
@@ -410,6 +419,7 @@ xlabel('Node to 5-face degree','Interpreter','latex', 'FontSize',15);
 title('Histogram', 'Interpreter','latex', 'FontSize',15);
 grid on;
 exportgraphics(f, strcat('PENTdeg_',dataset,'.png'));
+
 
 nbins = 5;
 % plot node-to-face (hexahedra) degree distribution 

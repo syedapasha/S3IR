@@ -1,12 +1,13 @@
 % =========================================================================
-%  SIR transmission on simplicial complex structured revelaed from  
+%  SIR transmission on simplicial complex structure revelaed from  
 %  emperical datasets
 % =========================================================================
 %
 %  Model Description:
 %  ------------------
 %  This script simulates contagion dynamics, incorporating pairwise (D=1),
-%  triangular (D=2), and tetrahedral (D=3) interactions. Each dimension > 1
+%  triangular (D=2), and tetrahedral (D=3) interactions, and higher-degree
+%  interactions. Each dimension > 1
 %  adds a higher-order contagion mechanism beyond standard pairwise contact
 %
 %  State Variables (node i, time step t):
@@ -189,7 +190,7 @@ parfor run = 1:NR
                      end
                 end
 
-                % STEP2: Triangle-based infection
+                % STEP 2: Triangle-based infection
                 %   For triangular face containing node i, check if the two
                 %   neighbours are infected, the triangle is fully active 
                 %   for node i and contribute at rate beta2.
@@ -205,65 +206,65 @@ parfor run = 1:NR
                 end
                 lambda_i = lambda_i + beta2*nFace;       % update infection probability
   
-                % STEP3: Tetrahedron-based infection
+                % STEP 3: Tetrahedron-based infection
                 %   The tetrahedron is fully active for node i if three
                 %   neighbours are infected. 
 
-%                 nFace = 0;
-% 
-%                 for ix = tetra_find{i}'
-%                     tet    = tetrahedron(ix,:);
-%                     others = tet(tet ~= i);
-%                     if sum(I(others, t)) == 3 
-%                         nFace = nFace + 1;
-%                     end
-%                 end                                             
-%                 lambda_i = lambda_i + beta3*nFace;     % update infection probability
-% 
-%                 % STEP4: 5-face-based infection
-%                 %   The 5-face is fully active for node i if three
-%                 %   neighbours are infected. 
-% 
-%                 nFace = 0;
-% 
-%                 for ix = penta_find{i}'
-%                     pen    = five_face(ix,:);
-%                     others = pen(pen ~= i);
-%                     if sum(I(others, t)) == 4 
-%                         nFace = nFace + 1;
-%                     end
-%                 end                                             
-%                 lambda_i = lambda_i + beta4*nFace;     % update infection probability
-% 
-%                 % STEP5: 6-face-based infection
-%                 %   The 6-face is fully active for node i if four
-%                 %   neighbours are infected. 
-% 
-%                 nFace = 0;
-% 
-%                 for ix = hexa_find{i}'
-%                     hex    = six_face(ix,:);
-%                     others = hex(hex ~= i);
-%                     if sum(I(others, t)) == 5 
-%                         nFace = nFace + 1;
-%                     end
-%                 end                                             
-%                 lambda_i = lambda_i + beta5*nFace;     % update infection probability
-% 
-%                 % STEP6: 7-face-based infection
-%                 %   The 7-face is fully active for node i if six
-%                 %   neighbours are infected. 
-% 
-%                 nFace = 0;
-% 
-%                 for ix = hepta_find{i}'
-%                     hep    = seven_face(ix,:);
-%                     others = hep(hep ~= i);
-%                     if sum(I(others, t)) == 6 
-%                         nFace = nFace + 1;
-%                     end
-%                 end                                             
-%                 lambda_i = lambda_i + beta6*nFace;     % update infection probability
+                nFace = 0;
+
+                for ix = tetra_find{i}'
+                    tet    = tetrahedron(ix,:);
+                    others = tet(tet ~= i);
+                    if sum(I(others, t)) == 3 
+                        nFace = nFace + 1;
+                    end
+                end                                             
+                lambda_i = lambda_i + beta3*nFace;     % update infection probability
+
+                % STEP 4: 5-face-based infection
+                %   The 5-face is fully active for node i if three
+                %   neighbours are infected. 
+
+                nFace = 0;
+
+                for ix = penta_find{i}'
+                    pen    = five_face(ix,:);
+                    others = pen(pen ~= i);
+                    if sum(I(others, t)) == 4 
+                        nFace = nFace + 1;
+                    end
+                end                                             
+                lambda_i = lambda_i + beta4*nFace;     % update infection probability
+
+                % STEP 5: 6-face-based infection
+                %   The 6-face is fully active for node i if four
+                %   neighbours are infected. 
+
+                nFace = 0;
+
+                for ix = hexa_find{i}'
+                    hex    = six_face(ix,:);
+                    others = hex(hex ~= i);
+                    if sum(I(others, t)) == 5 
+                        nFace = nFace + 1;
+                    end
+                end                                             
+                lambda_i = lambda_i + beta5*nFace;     % update infection probability
+
+                % STEP 6: 7-face-based infection
+                %   The 7-face is fully active for node i if six
+                %   neighbours are infected. 
+
+                nFace = 0;
+
+                for ix = hepta_find{i}'
+                    hep    = seven_face(ix,:);
+                    others = hep(hep ~= i);
+                    if sum(I(others, t)) == 6 
+                        nFace = nFace + 1;
+                    end
+                end                                             
+                lambda_i = lambda_i + beta6*nFace;     % update infection probability
                 
                 p_infect = 1 - exp(-lambda_i*dt);
                 if rand < p_infect
@@ -273,7 +274,7 @@ parfor run = 1:NR
 
             elseif I(i,t) == 1                  % If the node is infected
                 
-                % STEP4: Recovery
+                % STEP 7: Recovery
                 if rand < gamma*dt
                     I_new(i) = 0;
                     R_new(i) = 1;
@@ -281,7 +282,7 @@ parfor run = 1:NR
             end
         end
 
-        % STEP5: Update states
+        % STEP 8: Update states
         I(:,t+1) = I_new;
         R(:,t+1) = R_new;
     end
