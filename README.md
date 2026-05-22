@@ -104,27 +104,3 @@ This project does not require external `.env` files or specific configuration fi
 
 ---
 
-## Community & Governance
-
-### Contributing
-
-We welcome contributions from the community to enhance S3IR! If you're interested in improving the model, adding features, or fixing bugs, please follow these steps:
-
-1.  **Fork** the repository.
-2.  **Create a new branch** for your feature or bug fix: `git checkout -b feature/your-feature-name` or `git checkout -b bugfix/issue-description`.
-3.  **Make your changes** and ensure your code adheres to the existing style and conventions.
-4.  **Commit your changes** with clear and descriptive commit messages.
-5.  **Push your branch** to your forked repository.
-6.  **Open a Pull Request** against the `main` branch of this repository, describing your changes and their benefits.
-
-### License
-
-This project is licensed under the **MIT License**.
-
-You are free to:
-*   **Use**: Employ the software for any purpose.
-*   **Modify**: Adapt the software to your needs.
-*   **Distribute**: Share copies of the software.
-*   **Sublicense**: Grant others the right to use, modify, and distribute the software.
-
-Please see the `LICENSE` file in the root of the repository for the full text of the license.
