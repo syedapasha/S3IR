@@ -19,30 +19,26 @@
 
 ---
 
-## The Strategic "Why"
-
-> ### The Problem
+> ### Problem
 > Traditional epidemiological models, such as the standard SIR (Susceptible-Infectious-Recovered) framework, often simplify real-world interactions into pairwise relationships. This simplification overlooks the critical role of higher-order social structures in accelerating or mitigating disease transmission. The consequence is often an underestimation or mischaracterization of contagion dynamics, leading to less effective public health interventions and research insights.
 
-> ### The Solution
+> ### Solution
 > S3IR (Stochastic Simplicial SIR) transcends these limitations by modeling disease spread on **simplicial complexes**. This approach naturally incorporates multi-person interactions, allowing for a more accurate and nuanced representation of how diseases propagate within complex social networks. By leveraging stochasticity, S3IR provides robust simulations that capture the inherent randomness and variability of real-world contagion, delivering superior predictive power and deeper insights into epidemic dynamics.
 
 ---
 
-## Key Features
+## Features
 
-*   ✨ **Higher-Order Interaction Modeling**: Accurately capture disease transmission through groups and shared contexts, not just pairwise connections, for more realistic simulations.
-*   🎲 **Stochastic Simulation**: Embrace the inherent randomness of real-world events, providing a range of probable outcomes and robust statistical analysis for epidemic forecasting.
-*   📊 **Comparative Analysis**: Directly compare S3IR's advanced insights against traditional models (e.g., SSEM) to highlight the improved accuracy and nuanced understanding offered by simplicial approaches.
-*   🖼️ **Visual Diagnostics**: Generate insightful visualizations of epidemic progression, network characteristics, and degree distributions to understand complex dynamics at a glance.
-*   🛠️ **Modular MATLAB Design**: Easily extend and adapt the model for custom research scenarios, integrate new datasets, and explore various epidemiological parameters within a powerful numerical environment.
-*   🔬 **Research-Ready Framework**: Provides a solid foundation for academic research into complex systems, network science, and advanced epidemiological modeling.
+*   **Higher-Order Interaction Modeling.** Accurately capture disease transmission through groups and shared contexts, not just pairwise connections, for more realistic simulations.
+*   **Stochastic Simulation.** Accommodates the inherent randomness of real-world events, providing a range of probable outcomes and robust statistical analysis for epidemic forecasting.
+*   **Comparative Analysis.** Directly compare S3IR's insights against traditional models (e.g., SSEM) to highlight the improved accuracy and nuanced understanding offered by simplicial approaches.
+*   **Visual Diagnostics.** Generate insightful visualizations of epidemic progression, network characteristics, and degree distributions to understand complex dynamics at a glance.
+*   **Modular MATLAB Design**: Easily extend and adapt the model for custom research scenarios, integrate new datasets, and explore various epidemiological parameters within a powerful numerical environment.
+*   **Research-Ready Framework.** Provides a foundation for academic research into complex systems, network science, and epidemiological modeling.
 
 ---
 
 ## Technical Architecture
-
-### Tech Stack
 
 | Technology | Purpose                                        | Key Benefit                                                 |
 | :--------- | :--------------------------------------------- | :---------------------------------------------------------- |
